@@ -22,7 +22,7 @@ jobs:
 
     - name: Checkout - Branch name
       id: branch-name
-      uses: tj-actions/branch-names@v8
+      uses: tj-actions/branch-names@v9
 
     - name: Setup - BuildX
       uses: docker/setup-buildx-action@v3
