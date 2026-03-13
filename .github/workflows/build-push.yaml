@@ -69,7 +69,7 @@ jobs:
           type=raw,priority=700,value=${{ steps.global-tag.outputs.tag }}
 
     - name: Docker - Build / Push
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v7
       with:
         context: .
         build-args: CUSTOM_VERSION=${{ steps.global-tag.outputs.custom-version }}
