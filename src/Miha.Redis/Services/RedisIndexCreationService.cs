@@ -11,8 +11,6 @@ public partial class RedisIndexCreationService(
     IRedisConnectionProvider provider,
     ILogger<RedisIndexCreationService> logger) : IHostedService
 {
-    private readonly ILogger<RedisIndexCreationService> _logger = logger;
-
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         var indexableModels = Assembly.GetExecutingAssembly().GetTypes().Where(p => p.GetCustomAttribute(typeof(DocumentAttribute)) != null).ToList();

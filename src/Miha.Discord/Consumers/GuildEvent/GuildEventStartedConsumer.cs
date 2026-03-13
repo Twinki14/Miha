@@ -12,7 +12,7 @@ public class GuildEventStartedConsumer(
     IGuildService guildService,
     ILogger<GuildEventStartedConsumer> logger) : IConsumer<IGuildScheduledEvent>
 {
-    public async Task OnHandle(IGuildScheduledEvent guildEvent)
+    public async Task OnHandle(IGuildScheduledEvent guildEvent, CancellationToken cancellationToken)
     {
         var announcementRole = await guildService.GetAnnouncementRoleAsync(guildEvent.Guild.Id);
         var announcementChannel = await guildService.GetAnnouncementChannelAsync(guildEvent.Guild.Id);

@@ -9,7 +9,6 @@ using Miha.Logic;
 using Miha.Redis;
 using Miha.Discord;
 using Miha.Health;
-using Miha.Services;
 using Miha.Shared;
 using TinyHealthCheck;
 

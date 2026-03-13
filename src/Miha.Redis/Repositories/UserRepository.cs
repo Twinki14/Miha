@@ -12,7 +12,6 @@ public partial class UserRepository(
     : DocumentRepository<UserDocument>(provider), IUserRepository
 {
     private readonly IRedisConnectionProvider _provider = provider;
-    private readonly ILogger<UserRepository> _logger = logger;
 
     public async Task<IEnumerable<UserDocument>> GetAllUsersWithBirthdayEnabledAsync()
     {

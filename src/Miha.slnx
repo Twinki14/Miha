@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../docker-compose.dev.yml" />
+    <File Path="../readme.md" />
+    <File Path=".dockerignore" />
+    <File Path="appsettings.edge.json" />
+    <File Path="appsettings.json" />
+    <File Path="Directory.Build.Props" />
+    <File Path="Dockerfile" />
+  </Folder>
+  <Project Path="Miha.Discord/Miha.Discord.csproj" />
+  <Project Path="Miha.Logic/Miha.Logic.csproj" />
+  <Project Path="Miha.Redis/Miha.Redis.csproj" />
+  <Project Path="Miha.Shared/Miha.Shared.csproj" />
+  <Project Path="Miha/Miha.csproj" />
+</Solution>

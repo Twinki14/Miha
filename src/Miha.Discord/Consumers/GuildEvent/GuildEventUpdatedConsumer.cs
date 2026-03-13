@@ -12,7 +12,7 @@ public class GuildEventUpdatedConsumer(
     IGuildService guildService,
     ILogger<GuildEventUpdatedConsumer> logger) : IConsumer<IGuildScheduledEvent>
 {
-    public async Task OnHandle(IGuildScheduledEvent guildEvent)
+    public async Task OnHandle(IGuildScheduledEvent guildEvent, CancellationToken cancellationToken)
     {
         var loggingChannel = await guildService.GetLoggingChannelAsync(guildEvent.Guild.Id);
         if (loggingChannel.IsFailed)

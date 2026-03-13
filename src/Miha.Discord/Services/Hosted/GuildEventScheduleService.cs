@@ -25,7 +25,6 @@ public partial class GuildEventScheduleService(
 {
     private readonly DiscordSocketClient _client = client;
     private readonly DiscordOptions _discordOptions = discordOptions.Value;
-    private readonly ILogger<GuildEventScheduleService> _logger = logger;
 
     private const string Schedule = "0,5,10,15,20,25,30,35,40,45,50,55 * * * *"; // https://crontab.cronhub.io/
 
@@ -33,7 +32,7 @@ public partial class GuildEventScheduleService(
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("Waiting for client to be ready...");
+        logger.LogInformation("Waiting for client to be ready...");
 
         await Client.WaitForReadyAsync(stoppingToken);
 
@@ -48,14 +47,14 @@ public partial class GuildEventScheduleService(
 
                 if (nextUtc is null)
                 {
-                    _logger.LogWarning("Next utc occurence is null");
+                    logger.LogWarning("Next utc occurence is null");
                     await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
                     continue;
                 }
 
                 var next = nextUtc.Value - utcNow;
 
-                _logger.LogDebug("Waiting {Time} until next operation", next.Humanize(3));
+                logger.LogDebug("Waiting {Time} until next operation", next.Humanize(3));
 
                 await Task.Delay(nextUtc.Value - utcNow, stoppingToken);
 
@@ -68,14 +67,14 @@ public partial class GuildEventScheduleService(
             }
         }
 
-        _logger.LogInformation("Hosted service ended");
+        logger.LogInformation("Hosted service ended");
     }
 
     private async Task PostWeeklyScheduleAsync()
     {
         if (_discordOptions.Guild is null)
         {
-            _logger.LogWarning("Guild isn't configured");
+            logger.LogWarning("Guild isn't configured");
             return;
         }
 
@@ -84,13 +83,13 @@ public partial class GuildEventScheduleService(
 
         if (guildResult.IsFailed || guild is null)
         {
-            _logger.LogWarning("Guild doc failed, or the guild is null for some reason {Errors}", guildResult.Errors);
+            logger.LogWarning("Guild doc failed, or the guild is null for some reason {Errors}", guildResult.Errors);
             return;
         }
 
         if (guild.WeeklyScheduleChannel is null)
         {
-            _logger.LogDebug("Guild doesn't have a configured weekly schedule channel");
+            logger.LogDebug("Guild doesn't have a configured weekly schedule channel");
             return;
         }
 
@@ -99,7 +98,7 @@ public partial class GuildEventScheduleService(
 
         if (eventsThisWeekResult.IsFailed || eventsThisWeek is null)
         {
-            _logger.LogWarning("Fetching this weeks events failed, or is null {Errors}", eventsThisWeekResult.Errors);
+            logger.LogWarning("Fetching this weeks events failed, or is null {Errors}", eventsThisWeekResult.Errors);
             return;
         }
 
@@ -108,7 +107,7 @@ public partial class GuildEventScheduleService(
 
         if (weeklyScheduleChannelResult.IsFailed || weeklyScheduleChannel is null)
         {
-            _logger.LogWarning("Fetching the guilds weekly schedule channel failed, or is null {Errors}", weeklyScheduleChannelResult.Errors);
+            logger.LogWarning("Fetching the guilds weekly schedule channel failed, or is null {Errors}", weeklyScheduleChannelResult.Errors);
             return;
         }
 
@@ -126,7 +125,7 @@ public partial class GuildEventScheduleService(
             }
         }
 
-        _logger.LogInformation("Updating weekly schedule");
+        logger.LogInformation("Updating weekly schedule");
 
         var postedHeader = false;
         var postedFooter = false;
@@ -157,7 +156,7 @@ public partial class GuildEventScheduleService(
             {
                 var deletedMessages = 0;
 
-                _logger.LogInformation("Wiping posted messages");
+                logger.LogInformation("Wiping posted messages");
 
                 foreach (var message in messagesToDelete)
                 {
@@ -165,7 +164,7 @@ public partial class GuildEventScheduleService(
                     deletedMessages++;
                 }
 
-                _logger.LogInformation("Deleted {DeletedMessages} messages", deletedMessages);
+                logger.LogInformation("Deleted {DeletedMessages} messages", deletedMessages);
 
                 // Update the messages list
                 messages = (await weeklyScheduleChannel
@@ -267,7 +266,7 @@ public partial class GuildEventScheduleService(
 
             if (lastPostedMessage is null)
             {
-                _logger.LogInformation("Posting new message");
+                logger.LogInformation("Posting new message");
                 await weeklyScheduleChannel.SendMessageAsync(embed: embed.Build());
             }
             else
@@ -279,7 +278,7 @@ public partial class GuildEventScheduleService(
             }
         }
 
-        _logger.LogInformation("Finished updating weekly schedule");
+        logger.LogInformation("Finished updating weekly schedule");
     }
 
     [LoggerMessage(EventId = 1, Level = LogLevel.Error, Message = "Exception occurred")]
