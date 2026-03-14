@@ -4,6 +4,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 COPY . .
+WORKDIR /src
 RUN dotnet restore "Miha/Miha.csproj"
 RUN dotnet build "Miha/Miha.csproj" -c Release -o /app/build
 FROM build AS publish

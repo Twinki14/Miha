@@ -18,8 +18,8 @@ services:
   miha:
     container_name: miha
     build:
-      context: src/
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./src/Dockerfile
     environment:
       DOTNET_REDIS__HOST: redis
       DOTNET_REDIS__PORT: 6379
