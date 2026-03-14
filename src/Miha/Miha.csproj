@@ -2,11 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <LangVersion>12</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="TinyHealthCheck" Version="1.1.1" />
+    <PackageReference Include="TinyHealthCheck" Version="2.0.1" />
   </ItemGroup>
 </Project>
