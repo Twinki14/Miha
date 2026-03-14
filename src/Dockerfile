@@ -4,7 +4,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR "/src"
-COPY ["src/*.Props", "Miha/"]
+COPY ["src/*.Props", ""]
 COPY ["src/Miha/Miha.csproj", "Miha/"]
 COPY ["src/Miha.Discord/Miha.Discord.csproj", "Miha.Discord/"]
 COPY ["src/Miha.Logic/Miha.Logic.csproj", "Miha.Logic/"]
