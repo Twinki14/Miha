@@ -1,22 +1,17 @@
 services:
   redis:
-    image: redislabs/redismod
+    image: redis/redis-stack
     container_name: redis
     restart: always
-    ports:
-      - "6379"
-  redis-ui:
-    container_name: redis-ui
-    image: rediscommander/redis-commander:latest
-    restart: always
     environment:
-      - REDIS_HOSTS=local:redis:6379
-    depends_on:
-      - redis
+      REDIS_ARGS: --appendonly yes --maxmemory 256Mb
     ports:
-      - "8081:8081"
+      - 6379:6379
+      - 8001:8001
   miha:
+    image: miha:dev
     container_name: miha
+    restart: always
     build:
       context: ./
       dockerfile: ./src/Dockerfile
@@ -29,10 +24,3 @@ services:
       - "8000:8000"
     depends_on:
       - redis
-      - redis-ui
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 20s
-        max_attempts: 2
-        window: 120s
