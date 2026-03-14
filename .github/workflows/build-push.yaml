@@ -71,7 +71,7 @@ jobs:
     - name: Docker - Build / Push
       uses: docker/build-push-action@v7
       with:
-        context: ./
+        context: ./src
         build-args: CUSTOM_VERSION=${{ steps.global-tag.outputs.custom-version }}
         file: ./src/Dockerfile
         push: ${{ github.actor != 'dependabot[bot]' }}
