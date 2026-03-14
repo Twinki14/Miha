@@ -4,6 +4,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>14</LangVersion>
-        <GitVersion>false</GitVersion>
+        <GitVersion>false</GitVersion> <!-- Disables GitInfo NuGet version stamping, we only use the constants. -->
     </PropertyGroup>
 </Project>
