@@ -1,13 +1,10 @@
-version: '3.9'
 services:
-
   redis:
     image: redislabs/redismod
     container_name: redis
     restart: always
     ports:
       - "6379"
-
   redis-ui:
     container_name: redis-ui
     image: rediscommander/redis-commander:latest
@@ -18,7 +15,6 @@ services:
       - redis
     ports:
       - "8081:8081"
-
   miha:
     container_name: miha
     build:
@@ -27,7 +23,7 @@ services:
     environment:
       DOTNET_REDIS__HOST: redis
       DOTNET_REDIS__PORT: 6379
-      DOTNET_DISCORD__TOKEN: ----
+      DOTNET_DISCORD__TOKEN: '----'
       DOTNET_DISCORD__GUILD: 1068697076323602503
     ports:
       - "8000:8000"
