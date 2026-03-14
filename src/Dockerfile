@@ -6,9 +6,9 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 COPY . .
 WORKDIR /src
 RUN dotnet restore "Miha/Miha.csproj"
-RUN dotnet build "Miha/Miha.csproj" -c Release -o /app/build
+RUN dotnet build "Miha/Miha.csproj" -c Release -o /app/build --no-restore
 FROM build AS publish
-RUN dotnet publish "Miha/Miha.csproj" -c Release -o /app/publish
+RUN dotnet publish "Miha/Miha.csproj" -c Release -o /app/publish --no-build
 
 FROM base AS final
 WORKDIR /app
